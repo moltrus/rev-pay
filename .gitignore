@@ -1,2 +1,4 @@
 node_modules/
 desc.txt
+AGENTS.md
+.env

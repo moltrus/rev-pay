@@ -1,10 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const app = express();
-const SECRET_KEY = 'revpay_secret_123';
+const SECRET_KEY = process.env.JWT_SECRET;
 
 app.use(cors());
 app.use(express.json());
@@ -27,7 +28,7 @@ app.post('/api/auth/register', async (req, res) => {
   };
 
   users.push(newUser);
-  res.status(201).json({ message: 'Registration successful!' });
+  res.status(201).json({ message: 'Registration successful' });
 });
 
 app.post('/api/auth/login', async (req, res) => {
@@ -73,4 +74,5 @@ app.get('/api/user/dashboard', verifyToken, (req, res) => {
   });
 });
 
-app.listen(5000, () => console.log('Backend running on http://localhost:5000'));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Backend running on http://localhost:${PORT}`));
